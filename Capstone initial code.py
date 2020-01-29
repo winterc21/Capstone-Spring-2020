@@ -7,6 +7,55 @@ data=df.to_numpy()
 def getPitcherDate(gameid):
 	pass
 
+# ~ def indiv_count (pitcher,date,value,op):
+
+# ~ def team_count (team,date,value,op):
+
+def indiv_winloss(pitcher,date):
+	w=0
+	l=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and pitcher == x["STARTING PITCHER"]:
+			if x["W"]==1:
+				w+=1
+			if x["L"]==1:
+				l+=1
+			total+=1
+	# ~ print(l,w,total)
+	return(w,l)
+
+def team_winloss(team,date):
+	w=0
+	l=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date>=x["DATE"]:
+			games.add(x["GAME-ID"])
+	# ~ print(games)
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and team == x["TEAM"]:
+			if x["W"]==1:
+				w+=1
+			if x["L"]==1:
+				l+=1
+			total+=1
+	# ~ print(op_win,win,total)
+	return(w,l)
+
 def indiv_obpa(pitcher,date):
 	op_ab=0
 	ph=0
@@ -201,18 +250,20 @@ def team_error(team,date):
 	return e
 
 
-# ~ def indiv_count (pitcher,date,value,op)
 
-# ~ def team_count (team,date,value,op)
 	
 	
-print(indiv_obpa("Charlie Morton","10/1/19"))
-print(team_obpa("Tampa Bay Rays","10/1/19"))
-print(team_obp("Tampa Bay Rays","10/1/19"))
-print(team_avg("Tampa Bay Rays","10/1/19"))
-print(team_avga("Tampa Bay Rays","10/1/19"))
-print(indiv_avga("Charlie Morton","10/1/19"))
-print(indiv_error("Charlie Morton","10/1/19"))
-print(team_error("Tampa Bay Rays","10/1/19"))
+# ~ print(indiv_obpa("Charlie Morton","10/1/19"))
+# ~ print(team_obpa("Tampa Bay Rays","10/1/19"))
+# ~ print(team_obp("Tampa Bay Rays","10/1/19"))
+# ~ print(team_avg("Tampa Bay Rays","10/1/19"))
+# ~ print(team_avga("Tampa Bay Rays","10/1/19"))
+# ~ print(indiv_avga("Charlie Morton","10/1/19"))
+# ~ print(indiv_error("Charlie Morton","10/1/19"))
+# ~ print(team_error("Tampa Bay Rays","10/1/19"))
+print(team_winloss("Tampa Bay Rays","10/1/19"))
+print(indiv_winloss("Charlie Morton","10/1/19"))
+
+
 # ~ print(df[["BBB","BH"]])
-# ~ preint(np.array(df[["BR","BH","BBB","AVG","W","PH","PR"]]))
+# ~ print(np.array(df[["BR","BH","BBB","AVG","W","PH","PR"]]))
