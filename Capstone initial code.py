@@ -84,11 +84,123 @@ def team_obp(team,date):
 			op_hb+=x["HB"]
 		if x["GAME-ID"] in games and team == x["TEAM"]:
 			ab+=x["AB"]
-			bh+=x["PH"]
-			bbb+=x["PBB"]
+			bh+=x["BH"]
+			bbb+=x["BBB"]
 	# ~ print(ab,bh,bbb,op_hb,total)
 	return (bh+bbb+op_hb)/ab		
-			
+
+
+def team_avg(team,date):
+	ab=0
+	bh=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and team != x["TEAM"]:
+			total+=1
+		if x["GAME-ID"] in games and team == x["TEAM"]:
+			ab+=x["AB"]
+			bh+=x["BH"]
+	# ~ print(ab,bh,total)
+	return bh/ab
+	
+	
+def team_avga(team,date):
+	op_ab=0
+	ph=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and team != x["TEAM"]:
+			total+=1
+			op_ab+=x["AB"]
+		if x["GAME-ID"] in games and team == x["TEAM"]:
+			ph+=x["PH"]
+	# ~ print(op_ab,ph,total)
+	return ph/op_ab
+
+
+def indiv_avga(pitcher,date):
+	op_ab=0
+	ph=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and pitcher != x["STARTING PITCHER"]:
+			total+=1
+			op_ab+=x["AB"]
+		if x["GAME-ID"] in games and pitcher == x["STARTING PITCHER"]:
+			ph+=x["PH"]
+	# ~ print(op_ab,ph,total)
+	return ph/op_ab
+
+
+def indiv_error(pitcher,date):
+	e=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and pitcher != x["STARTING PITCHER"]:
+			total+=1
+		if x["GAME-ID"] in games and pitcher == x["STARTING PITCHER"]:
+			e+=x["E"]
+	# ~ print(e,total)
+	return e
+
+
+def team_error(team,date):
+	e=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and team != x["TEAM"]:
+			total+=1
+		if x["GAME-ID"] in games and team == x["TEAM"]:
+			e+=x["E"]
+	# ~ print(e,total)
+	return e
+
+
 # ~ def indiv_count (pitcher,date,value,op)
 
 # ~ def team_count (team,date,value,op)
@@ -97,6 +209,10 @@ def team_obp(team,date):
 print(indiv_obpa("Charlie Morton","10/1/19"))
 print(team_obpa("Tampa Bay Rays","10/1/19"))
 print(team_obp("Tampa Bay Rays","10/1/19"))
-
+print(team_avg("Tampa Bay Rays","10/1/19"))
+print(team_avga("Tampa Bay Rays","10/1/19"))
+print(indiv_avga("Charlie Morton","10/1/19"))
+print(indiv_error("Charlie Morton","10/1/19"))
+print(team_error("Tampa Bay Rays","10/1/19"))
 # ~ print(df[["BBB","BH"]])
 # ~ preint(np.array(df[["BR","BH","BBB","AVG","W","PH","PR"]]))
