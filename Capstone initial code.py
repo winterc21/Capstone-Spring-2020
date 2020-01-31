@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import random 
 
 df=pd.read_excel("Baseball INIT data.xlsx")
 data=df.to_numpy()
@@ -7,9 +8,14 @@ data=df.to_numpy()
 def getPitcherDate(gameid):
 	pass
 
-# ~ def indiv_count (pitcher,date,value,op):
+def indiv (pitcher,date):
 
-# ~ def team_count (team,date,value,op):
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			games.add(x["GAME-ID"])
+
+# ~ def team (team,date):
 
 def indiv_winloss(pitcher,date):
 	w=0
@@ -251,8 +257,7 @@ def team_error(team,date):
 
 
 
-	
-	
+
 # ~ print(indiv_obpa("Charlie Morton","10/1/19"))
 # ~ print(team_obpa("Tampa Bay Rays","10/1/19"))
 # ~ print(team_obp("Tampa Bay Rays","10/1/19"))
@@ -261,8 +266,8 @@ def team_error(team,date):
 # ~ print(indiv_avga("Charlie Morton","10/1/19"))
 # ~ print(indiv_error("Charlie Morton","10/1/19"))
 # ~ print(team_error("Tampa Bay Rays","10/1/19"))
-print(team_winloss("Tampa Bay Rays","10/1/19"))
-print(indiv_winloss("Charlie Morton","10/1/19"))
+# ~ print(team_winloss("Tampa Bay Rays","10/1/19"))
+# ~ print(indiv_winloss("Charlie Morton","10/1/19"))
 
 
 # ~ print(df[["BBB","BH"]])
