@@ -8,13 +8,14 @@ data=df.to_numpy()
 def getPitcherDate(gameid):
 	pass
 
-def indiv (pitcher,date):
-
+def indiv ():
+	pitcher=
+	date=
 	for row  in data:
 		x={header:value for header,value in zip(df.columns,row)}
 		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
 			games.add(x["GAME-ID"])
-
+return (pitcher,date)
 # ~ def team (team,date):
 
 def indiv_winloss(pitcher,date):
