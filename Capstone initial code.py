@@ -16,6 +16,23 @@ def getPitcherDate(gameid):
 # ~ return (pitcher,date)
 # ~ def team (team,date):
 
+def outcome(team,date):
+	r=0
+	op_r=0
+	total=0
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date==x["DATE"]:
+			if x["W"]==1:
+				return("Win")
+			if x["L"]==1:
+				return("Loss")
+
+
+
 def indiv_winloss(pitcher,date):
 	w=0
 	l=0
@@ -258,29 +275,56 @@ def team_error(team,date):
 # ~ print(data[3])
 
 N=len(df)
-r = np.random.randint(N)
-
-# ~ print(r)
-
-row = df.loc[r]
-
-row['GAME-ID']
-
-pair = df[df['GAME-ID']==row['GAME-ID']]
-
-players = list(pair['STARTING PITCHER'])
-teams = list(pair['TEAM'])
-times = list(pair['DATE'])
-
-team_data = df[(df['TEAM']==teams[0]) & (df['DATE'] < times[0])]
-indiv_data = df[(df['STARTING PITCHER']==players[0]) & (df['DATE'] < times[0])]
+r = np.random.permutation(list(range(800,4857)))
+for i in r:
+	
+	row = df.loc[i]
+	
+	row['GAME-ID']
+	
+	pair = df[df['GAME-ID']==row['GAME-ID']]
+	
+	players = list(pair['STARTING PITCHER'])
+	teams = list(pair['TEAM'])
+	times = list(pair['DATE'])
+	
+	# ~ print(team_obpa(teams[0],times[0]))
+	# ~ print(indiv_obpa(players[0],times[0]))
+	# ~ print(team_obp(teams[0],times[0]))
+	# ~ print(team_avg(teams[0],times[0]))
+	# ~ print(team_avga(teams[0],times[0]))
+	# ~ print(indiv_avga(players[0],times[0]))
+	# ~ print(indiv_error(players[0],times[0]))
+	# ~ print(team_error(teams[0],times[0]))
+	# ~ print(team_winloss(teams[0],times[0]))
+	# ~ print(indiv_winloss(players[0],times[0]))
+	(a,b)=(team_winloss(teams[0],times[0]))
+	(c,d)=(indiv_winloss(players[0],times[0]))
+	# ~ print("{},{},{},{},{},{},{},{},({},{}),({},{})" .format(team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d)
+	print(i)
+	print((team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d,(outcome(teams[0],times[0])))
+	
+# ~ team_data = df[(df['TEAM']==teams[0]) & (df['DATE'] < times[0])]
+# ~ indiv_data = df[(df['STARTING PITCHER']==players[0]) & (df['DATE'] < times[0])]
 
 # ~ print (team_data)
 # ~ print (indiv_data)
 
-# ~ print(indiv_obpa(indiv_data(df['STARTING PITCHER']),(df["DATE"])))
+# ~ team = team_data['TEAM']
+# ~ team_date = team_data['DATE']
+# ~ indiv = indiv_data['STARTING PITCHER']
+# ~ indiv_date = indiv_data['DATE']
 
+# ~ print("r = {}, Team = {}, date = {}" .format(r, team, team_date))
 
+# ~ print(team_date)
+
+# ~ print(team_obpa(team,team_date))
+
+# ~ teams = list(pair['TEAM'])
+# ~ times = list(pair['DATE'])
+
+# ~ print(team_obpa(teams[0],times[0]))
 
 # ~ print(indiv_obpa("Charlie Morton","10/1/19"))
 # ~ print(team_obpa("Tampa Bay Rays","10/1/19"))
@@ -292,7 +336,7 @@ indiv_data = df[(df['STARTING PITCHER']==players[0]) & (df['DATE'] < times[0])]
 # ~ print(team_error("Tampa Bay Rays","10/1/19"))
 # ~ print(team_winloss("Tampa Bay Rays","10/1/19"))
 # ~ print(indiv_winloss("Charlie Morton","10/1/19"))
-
+# ~ print(outcome("Tampa Bay Rays","10/1/19"))
 
 # ~ print(df[["BBB","BH"]])
 # ~ print(np.array(df[["BR","BH","BBB","AVG","W","PH","PR"]]))
