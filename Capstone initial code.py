@@ -8,14 +8,12 @@ data=df.to_numpy()
 def getPitcherDate(gameid):
 	pass
 
-def indiv ():
-	pitcher=
-	date=
-	for row  in data:
-		x={header:value for header,value in zip(df.columns,row)}
-		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
-			games.add(x["GAME-ID"])
-return (pitcher,date)
+# ~ def indiv (pitcher,date):
+	# ~ for row  in data:
+		# ~ x={header:value for header,value in zip(df.columns,row)}
+		# ~ if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			# ~ games.add(x["GAME-ID"])
+# ~ return (pitcher,date)
 # ~ def team (team,date):
 
 def indiv_winloss(pitcher,date):
@@ -257,6 +255,31 @@ def team_error(team,date):
 	return e
 
 
+# ~ print(data[3])
+
+N=len(df)
+r = np.random.randint(N)
+
+# ~ print(r)
+
+row = df.loc[r]
+
+row['GAME-ID']
+
+pair = df[df['GAME-ID']==row['GAME-ID']]
+
+players = list(pair['STARTING PITCHER'])
+teams = list(pair['TEAM'])
+times = list(pair['DATE'])
+
+team_data = df[(df['TEAM']==teams[0]) & (df['DATE'] < times[0])]
+indiv_data = df[(df['STARTING PITCHER']==players[0]) & (df['DATE'] < times[0])]
+
+# ~ print (team_data)
+# ~ print (indiv_data)
+
+# ~ print(indiv_obpa(indiv_data(df['STARTING PITCHER']),(df["DATE"])))
+
 
 
 # ~ print(indiv_obpa("Charlie Morton","10/1/19"))
@@ -273,3 +296,4 @@ def team_error(team,date):
 
 # ~ print(df[["BBB","BH"]])
 # ~ print(np.array(df[["BR","BH","BBB","AVG","W","PH","PR"]]))
+
