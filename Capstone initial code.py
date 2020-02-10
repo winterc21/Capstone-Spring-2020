@@ -271,6 +271,33 @@ def team_error(team,date):
 	# ~ print(e,total)
 	return e
 
+def player_a(pitcher,date):
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if pitcher==x["STARTING PITCHER"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and pitcher == x["STARTING PITCHER"]:
+			return pitcher
+
+def team_a(team,date):
+	if type(date) != pd.Timestamp:
+		date=pd.Timestamp(date)
+	games=set()
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if team==x["TEAM"] and date>=x["DATE"]:
+			# ~ print(x)
+			games.add(x["GAME-ID"])
+	for row  in data:
+		x={header:value for header,value in zip(df.columns,row)}
+		if x["GAME-ID"] in games and team == x["TEAM"]:
+			return team
 
 # ~ print(data[3])
 
@@ -302,7 +329,7 @@ for i in r:
 	(c,d)=(indiv_winloss(players[0],times[0]))
 	# ~ print("{},{},{},{},{},{},{},{},({},{}),({},{})" .format(team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d)
 	print(i)
-	print((team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d,(outcome(teams[0],times[0])))
+	print("{},{},{},{},{},{},{},{},{},{}({},{}),({},{}),{}" .format((team_a(teams[0],times[0])),(player_a(players[0],times[0])),(team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d,(outcome(teams[0],times[0]))))
 	
 # ~ team_data = df[(df['TEAM']==teams[0]) & (df['DATE'] < times[0])]
 # ~ indiv_data = df[(df['STARTING PITCHER']==players[0]) & (df['DATE'] < times[0])]
