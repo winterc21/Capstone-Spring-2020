@@ -284,5 +284,4 @@ for i in r:
 	(a,b)=(team_winloss(teams[0],times[0]))
 	(c,d)=(indiv_winloss(players[0],times[0]))
 	
-	print(i)
 	print("{},{},{},{},{},{},{},{},{},{}({},{}),({},{}),{}" .format((team_a(teams[0],times[0])),(player_a(players[0],times[0])),(team_obpa(teams[0],times[0])),(indiv_obpa(players[0],times[0])),(team_obp(teams[0],times[0])),(team_avg(teams[0],times[0])),(team_avga(teams[0],times[0])),(indiv_avga(players[0],times[0])),(indiv_error(players[0],times[0])),(team_error(teams[0],times[0])),a,b,c,d,(outcome(teams[0],times[0]))))
