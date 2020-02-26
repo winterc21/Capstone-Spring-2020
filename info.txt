@@ -1,0 +1,19 @@
+one_game_list=[1,2,3,4,'oeio']
+
+
+all_games_list=[[1,2,3,4,'oeio'],
+				[fsdalkfdkljsa]]
+				
+all_games_list=[] or list()
+
+for loop
+	one_game_list = fskljadlkjfasd
+	all_games_list.append(one_game_list)
+	
+
+r = np.random.permutation(list(range(800,4857)))
+for i in r:
+	...
+
+put into command terminal for capstone folder
+python Final\ Sorting\ Code.py >> output.txt

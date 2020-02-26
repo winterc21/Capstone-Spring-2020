@@ -1,42 +1,41 @@
-import sklearn #1
-import pandas #3
-import matplotlib.pyplot as plt #4
-import seaborn as sns # visualization #4
-import numpy as np #5
-from sklearn.utils import shuffle #8
-from sklearn.neural_network import MLPClassifier #10
-from sklearn.model_selection import cross_validate #14
+import sklearn 
+import pandas 
+import matplotlib.pyplot as plt
+import seaborn as sns 
+import numpy as np 
+from sklearn.utils import shuffle 
+from sklearn.neural_network import MLPClassifier 
+from sklearn.model_selection import cross_validate 
 
-data=pandas.read_csv("output.txt",header=None)#(place "header=None" into parenthesis to show header #3
-print(data) #3
+data=pandas.read_csv("output.txt",header=None)
+print(data) 
 
-# ~ sns.pairplot( data=data,vars=(2,3,4,5,6,7,8,9,10,11,12,13), hue=14)
-# ~ plt.show() #4
+sns.pairplot( data=data,vars=(2,3,4,5,6,7,8,9,10,11,12,13), hue=14)
+plt.show() 
 
-data=np.array(data) #5
+data=np.array(data) 
 
-X=data[:,2:12] #This gets all the rows and only the first 4 columns. #6
-y=data[:,-1] #Gets only the 4th row #6
-print(X.shape) #(150,4) #6
-print(y.shape) #(150,1) #6
+X=data[:,2:14]
+y=data[:,-1] 
+print(X.shape) 
+print(y.shape) 
 
-X,y=shuffle(X,y,random_state=0) #8
+X,y=shuffle(X,y,random_state=0) 
 
-trainX=X[:2724,:] #9
-trainy=y[:2724] #9
-testX=X[2724:3627,:] #9
-testy=y[2724:3627] #9
-# ~ random_state=5369,max_iter=20000,hidden_layer_sizes=[5, 5]
-# ~ for layerSize in range(1,12):
+trainX=X[:2724,:] 
+trainy=y[:2724] 
+testX=X[2724:3627,:] 
+testy=y[2724:3627] 
+
 clf = MLPClassifier(random_state=5369,max_iter=20000,hidden_layer_sizes=[5, 5])
 
 clf.fit(trainX, trainy)
 
-print(clf.score(trainX,trainy)) #13
-print(clf.score(testX,testy)) #13
+print(clf.score(trainX,trainy)) 
+print(clf.score(testX,testy)) 
 
-cv_results=cross_validate(clf, X, y, cv=14) #14
-print(cv_results) #14
+cv_results=cross_validate(clf, X, y, cv=14) 
+print(cv_results) 
 
 parameters={'hidden_layer_sizes':([1], [2], [3], [4], [5], [6], [7])}
 from sklearn.model_selection import GridSearchCV
